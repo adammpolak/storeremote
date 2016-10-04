@@ -1,0 +1,53 @@
+var express = require('express');
+var mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
+var logger = require('morgan');
+
+var hbs = require('hbs');
+require('handlebars-form-helpers').register(hbs.handlebars);
+var bodyParser = require('body-parser');
+var methodOverride = require('method-override');
+
+var User = require('./models/user');
+var userController = require('./controllers/users');
+var deviceController = require('./controllers/devices');
+var device_typeController = require('./controllers/device_types');
+var control_typeController = require('./controllers/control_types');
+var select_optionController = require('./controllers/select_options');
+
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+
+mongoose.connect('mongodb://localhost/remote')
+var app = express()
+
+app.set('view engine', 'hbs');
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(methodOverride('_method'));
+app.use(express.static(__dirname + '/public'));
+
+app.use(require('express-session')({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.use(User.createStrategy());
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+app.use('/users', userController);
+// app.use('/devices', deviceController);
+// app.use('/device_types', device_typeController);
+// app.use('/control_types', control_typeController);
+// app.use('/select_options', select_optionController);
+
+app.get('/', function(req,res){
+  res.send('home page!')
+});
+
+app.listen(3000)
