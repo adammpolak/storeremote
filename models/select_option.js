@@ -8,4 +8,4 @@ var select_optionSchema = new Schema ({
 
 var Select_Option = mongoose.model('Select_Option', select_optionSchema);
 
-module.exports = Select_Option;
+module.exports = SelectOption;
