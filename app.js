@@ -9,11 +9,11 @@ var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 
 var User = require('./models/user');
-var userController = require('./controllers/users');
-var deviceController = require('./controllers/devices');
-var device_typeController = require('./controllers/device_types');
-var control_typeController = require('./controllers/control_types');
-var select_optionController = require('./controllers/select_options');
+var usersController = require('./controllers/users');
+var devicesController = require('./controllers/devices');
+var device_typesController = require('./controllers/device_types');
+var control_typesController = require('./controllers/control_types');
+var select_optionsController = require('./controllers/select_options');
 
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
@@ -40,14 +40,17 @@ passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-app.use('/users', userController);
-// app.use('/devices', deviceController);
-// app.use('/device_types', device_typeController);
+app.use('/users', usersController);
+app.use('/devices', devicesController)
+app.use('/device_types', device_typesController);
 // app.use('/control_types', control_typeController);
 // app.use('/select_options', select_optionController);
 
 app.get('/', function(req,res){
-  res.send('home page!')
+  if (req.user) {
+    res.redirect('/devices');
+  } else {
+  res.render('home')}
 });
 
 app.listen(3000)

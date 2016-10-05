@@ -20,6 +20,11 @@ userSchema.pre('save', function(next){
   next();
 });
 
+userSchema.pre('save', function(next){
+  this.admin = false;
+  next();
+});
+
 userSchema.plugin(passportLocalMongoose)
 
 var User = mongoose.model('User', userSchema);
