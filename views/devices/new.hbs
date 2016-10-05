@@ -3,5 +3,10 @@
 <form class="" action="/devices/new" method="post">
   <label for="name">Name:</label>
   <input type="text" name="name" placeholder="type name here">
+  <select class="device type" name="devicetype">
+    {{#each device_types}}
+    <option value="{{this._id}}">{{this.name}}</option>
+    {{/each}}
+  </select>
   <button type="submit" name="create device">add device</button>
 </form>
