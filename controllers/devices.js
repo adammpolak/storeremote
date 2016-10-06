@@ -12,17 +12,16 @@ router.get('/', function(req,res) {
 
 router.get('/new', function(req,res){
   Device_Type.find({}, function(err, device_types){
-    console.log(device_types);
     res.render('devices/new', {device_types: device_types})
   });
 });
 
 router.post('/new', function(req,res){
-  Device_Type.find({id: req.body.devicetype}, function(err,device_type){
+  Device_Type.findOne({_id: req.body.device_type_id}, function(err,device_type){
     var device = new Device ({
       name: req.body.name,
       device_type: device_type,
-  })
+  });
   device.save(function(err,user){
   });
     res.redirect('/devices');

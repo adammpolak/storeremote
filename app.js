@@ -18,7 +18,8 @@ var select_optionsController = require('./controllers/select_options');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
-mongoose.connect('mongodb://localhost/remote')
+var mongoURI = process.env.MONGODB_URI || 'mongodb://localhost/remote';
+mongoose.connect(mongoURI)
 var app = express()
 
 app.set('view engine', 'hbs');
@@ -53,4 +54,4 @@ app.get('/', function(req,res){
   res.render('home')}
 });
 
-app.listen(3000)
+app.listen(process.env.PORT || 3000)

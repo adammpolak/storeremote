@@ -1,8 +1,12 @@
 <a href="/device_types">Back to device types</a>
 
-<form class="" action="/device_types/new" method="post">
+<form id="device-type-form" action="/device_types/new" method="post">
   <label for="name">Name:</label>
   <input type="text" name="name" placeholder="type name here">
-  <label for="device_type">Device Type:</label>
+  <label for="name">API:</label>
+  <input type="text" name="api" placeholder="type api address here">
   <button type="submit" name="create device">add device type</button>
+  <h4>Controls</h4>
+  <button type="button" id="add-control-button">Add Control</button>
+
 </form>
