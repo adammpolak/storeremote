@@ -9,12 +9,13 @@ router.get('/', function(req,res) {
     res.render('devices/index', {devices: devices})
   });
 });
-
 router.get('/new', function(req,res){
   Device_Type.find({}, function(err, device_types){
     res.render('devices/new', {device_types: device_types})
   });
 });
+
+
 
 router.post('/new', function(req,res){
   Device_Type.findOne({_id: req.body.device_type_id}, function(err,device_type){
@@ -25,6 +26,11 @@ router.post('/new', function(req,res){
   device.save(function(err,user){
   });
     res.redirect('/devices');
+  });
+});
+router.get('/:id', function(req,res){
+  Device.findOne({_id: req.params.id}, function(err,device){
+    res.render('devices/show', {device:device})
   });
 });
 

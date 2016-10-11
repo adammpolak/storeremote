@@ -9,6 +9,11 @@ var ButtonControlSchema = new Schema ({
   value: Boolean,
 })
 
+ButtonControlSchema.pre('save', function(next) {
+  this.value = false;
+  next();
+});
+
 var ButtonControl = mongoose.model('ButtonControl', ButtonControlSchema);
 
 module.exports = ButtonControl;

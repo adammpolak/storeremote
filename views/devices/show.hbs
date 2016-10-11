@@ -1,0 +1,10 @@
+<a href="/devices">< Devices</a><h1>Device Page</h1>
+
+<h3>Name: {{device.name}}</h3>
+<h3>API: {{device.api}}</h3>
+
+<ul>
+  {{#each device.device_type.controls}}
+  <li>{{this}}</li>
+  {{/each}}
+</ul>
